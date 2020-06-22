@@ -1,0 +1,400 @@
+syntax = "proto3";
+
+package proto.pb;
+
+option go_package = ".;pb";
+
+import "google/protobuf/struct.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/wrappers.proto";
+//import "google/protobuf/timestamp.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Protocol Karat Decoder service";
+		version: "1.0";
+		contact: {
+			name: "protocol-karat-decoder-service project";
+			//url: "https://github.com/amsokol/go-grpc-http-rest-microservice-tutorial";
+			email: "serg@ws-lab.ru";
+        };
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+
+//https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/struct.proto
+// The greeting service definition.
+service KaratProto {
+  // Decoder of packet Protocol Karat
+  rpc PacketDecode (PacketDecodeRequest) returns (PacketDecodeResponse) {
+	        option (google.api.http) = {
+            get: "/api/rx_packet_decode"
+        };
+	}
+   // List of packet Protocol Karat
+  rpc GetPacket (EmptyRequest) returns (PacketResponse) {
+	        option (google.api.http) = {
+            get: "/api/packet"
+        };
+	}
+   // List of configuration packet Protocol Karat
+  rpc GetPacketConf (PacketConfRequest) returns (PacketConfResponse) {
+	        option (google.api.http) = {
+            get: "/api/packet_conf"
+        };
+	}	
+  // List of resource
+  rpc GetResource (EmptyRequest) returns (ResourceResponse) {
+		option (google.api.http) = {
+            get: "/api/resource"
+        };
+}
+// List of resource variable
+  rpc GetRvariable (EmptyRequest) returns (RvariableResponse) {
+		option (google.api.http) = {
+            get: "/api/rvariable"
+        };
+}
+// List of resource value
+  rpc GetRvalue (EmptyRequest) returns (RvalueResponse) {
+		option (google.api.http) = {
+            get: "/api/rvalue"
+        };
+	}
+// List of unit
+  rpc GetUnit (EmptyRequest) returns (UnitResponse) {
+		option (google.api.http) = {
+            get: "/api/unit"
+        };
+	}
+   // Coder for function 0x0101 of configuration packet Protocol Karat
+  rpc SetSettingsPacketProtocol20 (SettingsPacketProtocol20Request) returns (SettingsPacketProtocol20Response) {
+	        option (google.api.http) = {
+            get: "/api/tx_settings_packet_protocol_20"
+        };
+	}
+   // Coder for function 0x0015 of configuration packet Protocol Karat
+  rpc SetSettingsPacketProtocol18 (SettingsPacketProtocol18Request) returns (SettingsPacketProtocol18Response) {
+	        option (google.api.http) = {
+            get: "/api/tx_settings_packet_protocol_18"
+        };
+	}	
+	  // List of flag of type
+  rpc GetFlagOfType (FlagOfTypeRequest) returns (FlagOfTypeResponse) {
+		option (google.api.http) = {
+            get: "/api/status_of_flag"
+        };
+	}	
+	  // Set time correct operation
+  rpc SetTimeCorrect (TimeCorrectRequest) returns (TimeCorrectResponse) {
+		option (google.api.http) = {
+            get: "/api/tx_time_correct"
+        };
+	}
+	  // Set packet of query archive
+  rpc SetArchQuery (ArchQueryRequest) returns (ArchQueryResponse) {
+		option (google.api.http) = {
+            get: "/api/tx_arch_query"
+        };
+	}	
+	  // Set LoraWan Params operation
+  rpc SetLoraWanParams (LoraWanParamsRequest) returns (LoraWanParamsResponse) {
+		option (google.api.http) = {
+            get: "/api/tx_lorawan_params"
+        };
+	}	
+		  // Set function empty param
+  rpc SetFunctionWithEmptyParam (FunctionWithEmptyParamRequest) returns (FunctionWithEmptyParamResponse) {
+		option (google.api.http) = {
+            get: "/api/tx_function_empty_param"
+        };
+	}			
+}
+
+// The request message containing code packet.
+message PacketConfRequest {
+  int32 packet_code = 1;	
+}
+// The response message containing the PacketConf
+message PacketConf {  
+            int32            id            = 1;
+  		    int32     		code          = 2;
+            int32            index         = 3; 
+            int32            resource_id   = 4;
+            int32            rvariable_id  = 5;
+    google.protobuf.Value    rvalue_id     = 6;	
+            int32            len           = 7;	
+            int32            type_data     = 8;
+google.protobuf.BoolValue    little_endian = 9;
+google.protobuf.BoolValue    is_sensor     = 10;	
+google.protobuf.Value        unit_id       = 11;													
+}
+// return list packet configuration
+message PacketConfResponse {  
+	repeated  PacketConf  packet_conf   = 1;
+}
+// The request message containing packet.
+message PacketDecodeRequest {
+  string spacket = 1;
+  bytes  bpacket = 2; 	
+}
+
+// The request message containing param for function 0x0101.
+message SettingsPacketProtocol20Request {
+	//EventMaskFlags – Маска флагов событий выхода на связь
+	// в качестве параметра передается массив параметров id, см /api/status_of_flag?type=2
+  repeated int32                     event_mask_flags = 1;
+  //Передается разница времени конечного устройства и сети в секундах; 
+  int32                     delta_dev_time         = 2; 
+  //Часовой пояс, параметр задается в часах
+  float 				     	time_zone	    = 3;
+//Cмещение выхода на связь от начала суток в секундах допустимые значения 1…43200 сек
+  uint32 				    offset_time	    = 4;
+//период выхода на связь в минутах, допустимые значения 1…720 мин.
+  uint32 				    tx_period 	    = 5;
+// Флаги типов передаваемых архивов
+// в качестве параметра передается массив параметров id, см /api/status_of_flag?type=5
+  repeated uint32 				    arch_flags 	    = 6;
+//Число передаваемых пакетов
+  uint32 				    main_msg_cnt 	= 7;
+//Код функции 1-го пакета, см /api/packet
+  uint32 				    	mmsg1            = 8;
+//Код функции 2-го пакета, см /api/packet
+  uint32 				    	mmsg2            = 9;
+//Код функции 3-го пакета, см /api/packet
+  uint32 				    	mmsg3            = 10;	
+//Код функции 4-го пакета, см /api/packet
+  uint32 				    	mmsg4            = 11;
+//Код функции 5-го пакета, см /api/packet
+  uint32 				    	mmsg5            = 12;	
+//Код функции 6-го пакета, см /api/packet
+  uint32 				    	mmsg6            = 13;								
+}
+
+// The response message containing base64 response for function 0x0101.
+message SettingsPacketProtocol20Response {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}
+
+// The request message containing param for function 0x0101.
+message SettingsPacketProtocol18Request {
+	//LWTime – Время конечного устройства,format := "2006-01-02 15:04:05"
+	//Если данное поле не используется,то оставляется не заполненным в пакете формируется значение 0xFFFFFFFFFFFF
+	//Задается либо lw_time, либо delta_dev_time, если задано lw_time, то delta_dev_time = 0
+  string                    lw_time = 1;
+  //Смещение часов между конечным устройством и часами сервера точного времени; 
+  int32                     delta_dev_time         = 2; 
+  //Часовой пояс, параметр задается в часах
+  float 				     	time_zone	    = 3;
+//Cмещение выхода на связь от начала суток в секундах допустимые значения 1…43200 сек
+  uint32 				    offset_time	    = 4;
+//период выхода на связь в секундах
+  uint32 				    tx_period 	    = 5;
+// Флаги типов передаваемых архивов
+// в качестве параметра передается массив параметров id, см /api/status_of_flag?type=5
+  repeated uint32 				    arch_flags 	    = 6;
+//Число передаваемых пакетов
+  uint32 				    main_msg_cnt 	= 7;
+//Код функции 1-го пакета, см /api/packet
+  uint32 				    	mmsg1            = 8;
+//Код функции 2-го пакета, см /api/packet
+  uint32 				    	mmsg2            = 9;
+//Код функции 3-го пакета, см /api/packet
+  uint32 				    	mmsg3            = 10;	
+//Код функции 4-го пакета, см /api/packet
+  uint32 				    	mmsg4            = 11;
+//Код функции 5-го пакета, см /api/packet
+  uint32 				    	mmsg5            = 12;	
+//Код функции 6-го пакета, см /api/packet
+  uint32 				    	mmsg6            = 13;		
+//Дата отчетного периода		
+  uint32 				    	rep_date         = 14;				
+}
+
+// The response message containing base64 response for function 0x0015.
+message SettingsPacketProtocol18Response {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}
+
+message EmptyRequest {}
+
+// The response message containing the PacketDecode
+message PacketDecodeResponse {  
+            int32            func         = 1;
+  repeated  Data     		datas        = 2;
+            int32            resource_inx = 3; 
+            string           packet_error = 4;
+            int32            packet_type  = 5;
+}
+// The response message containing the PacketDecode
+message Packet {  
+            int32            id           = 1;
+  		    string     		vr           = 2;
+repeated    string           models       = 3; 
+            int32            packet_type  = 4;
+}
+// return list packet
+message PacketResponse {  
+	repeated  Packet       packet   = 1;
+}
+
+// The response message value of config packet
+message Data {  
+  int32                      rvalue_id    = 1;
+  google.protobuf.Value     	value        = 2;
+  string                     alias        = 3; 
+  int32                      resource_id  = 4;
+  int32                      rvariable_id = 5;
+}
+message Resource {  
+	int32                    id         = 1;
+	string					name       = 2;
+}
+// return list resource
+message ResourceResponse {  
+	repeated  Resource       resource   = 1;
+}
+
+message Rvariable {  
+  int32                  id         = 1;
+  string					name       = 2;
+  string					alias      = 3;
+}
+// return list rvariable
+message RvariableResponse {  
+	repeated  Rvariable      rvariable   = 1;
+}
+// return list rvalue
+message RvalueResponse {
+	repeated  Rvalue      rvalues   = 1;
+}
+message Rvalue {  
+  int32                  id              = 1; 
+  string					name            = 2; 
+  int32					resource_id     = 3; 
+  int32					rvariable_id    = 4;
+google.protobuf.Value    unit_id         = 5;
+}  
+// return list unit
+message UnitResponse {
+	repeated  Unit      units   = 1;
+}
+message Unit {  
+  int32                  id              = 1; 
+  string					name            = 2; 
+  int32					rvariable_id    = 3;
+  float		      	    multiplier    = 4;
+} 
+// request of type Flag
+message FlagOfTypeRequest {
+	// type = 1 получение списка ошибок по приборам
+    // type = 2 получение списка флагов событий (параметр EventMaskFlags)
+    // type = 3 получение списка флагов статусов связи (параметр ConStatusFlags)
+    // type = 4 получение списка перечня флагов для функции 0x0021 (параметр CFlags)
+    // type = 5 получение списка типов архивов
+	// type = 6 получение списка нештатных ситуаций в приборе (параметр LogCode)
+	int32      type   = 1;
+}
+// return list flag of type
+message FlagOfTypeResponse {
+	repeated  FlagOfType      flags   = 1;
+}
+message FlagOfType {  
+  int32                  id              = 1; 
+  string					note            = 2; 
+  string					byte            = 3;
+  google.protobuf.Value		      	    nbit            = 4;
+  string devices = 5;
+} 
+
+// The request message containing param for function 0x0016.
+message TimeCorrectRequest {
+//Сдвиг конечного устройства в секундах
+//положительный сдвиг (часы конечного устройства отстают), отрицательный сдвиг (часы конечного устройства идут вперед) 
+//Работает со всеми версиями протокола
+  int32 delta_time = 1;	
+}
+
+// The response message containing base64 response for function 0x0016.
+message TimeCorrectResponse {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}
+
+// The request message containing param for function query archive.
+message ArchQueryRequest { 
+//Выбор версии протокола
+	enum PROTOCOL {
+	    PROTOCOL18 = 0;
+	    PROTOCOL20 = 1;
+	  }
+  //Параметр отвечает за версию протокола	
+  PROTOCOL	protocol_version = 1;
+//ArchTime – Время запрашиваемого архива,format := "2006-01-02 15:04:05"
+  string                    arch_time = 2;
+// Тип запрафиваемого архива
+// в качестве параметра передается id, см /api/status_of_flag?type=5
+  uint32 				    arch_type 	    = 3;
+}
+
+// The response message containing base64 response for function query archive.
+message ArchQueryResponse {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}
+
+// The request message containing param for function 0x0021.
+message LoraWanParamsRequest {
+//Параметры подключения,скорость (DR), по умолчанию = 32
+  int32 join_params = 1;	
+//Частота 2-го окна приема, по умолчанию = 8691000
+  int32 dn2freq = 2;
+//Порт, на который нода отправляет пакеты, по умолчанию = 5
+  int32 port = 3;
+//Число попыток передачи, по умолчанию = 3
+  int32 tx_atts = 4;
+//Параметры адаптации скорости, по умолчанию = 34
+  int32 adr_param = 5;
+//Управляющие флаги
+// в качестве параметра передается массив id, см /api/status_of_flag?type=4
+  repeated int32 cflags = 6;
+}
+
+// The response message containing base64 response for function 0x0016.
+message LoraWanParamsResponse {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}
+
+// The request message containing body for function 0x0014,0x0021,0x0100,0x0101.
+message FunctionWithEmptyParamRequest { 
+  //Выбор номер функции для получения информации
+  // Функция 20 - комплексное чтение параметров (версия протокола 1.8)	
+  // Функция 33 - чтение/установка параметров сети LoRaWAN (версия протокола 2.0)	
+  // Функция 256 - Чтение информации о конечном устройстве (версия протокола 2.0)	
+  // Функция 257 - Комплексное чтение/установка параметров конечного устройства с несколькими пакетами данных (версия протокола 2.0)		
+  int32	function_code = 1;
+}
+
+// The response message containing base64 response for function 0x0016.
+message FunctionWithEmptyParamResponse {
+  bytes  bpacket = 1; 
+  string spacket = 2; 	
+}

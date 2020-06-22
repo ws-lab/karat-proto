@@ -1,0 +1,1240 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Protocol Karat Decoder service",
+    "version": "1.0",
+    "contact": {
+      "name": "protocol-karat-decoder-service project",
+      "email": "serg@ws-lab.ru"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/packet": {
+      "get": {
+        "summary": "List of packet Protocol Karat",
+        "operationId": "KaratProto_GetPacket",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbPacketResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/packet_conf": {
+      "get": {
+        "summary": "List of configuration packet Protocol Karat",
+        "operationId": "KaratProto_GetPacketConf",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbPacketConfResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "packet_code",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/resource": {
+      "get": {
+        "summary": "List of resource",
+        "operationId": "KaratProto_GetResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbResourceResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/rvalue": {
+      "get": {
+        "summary": "List of resource value",
+        "operationId": "KaratProto_GetRvalue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbRvalueResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/rvariable": {
+      "get": {
+        "summary": "List of resource variable",
+        "operationId": "KaratProto_GetRvariable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbRvariableResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/rx_packet_decode": {
+      "get": {
+        "summary": "Decoder of packet Protocol Karat",
+        "operationId": "KaratProto_PacketDecode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbPacketDecodeResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "spacket",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bpacket",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/status_of_flag": {
+      "get": {
+        "summary": "List of flag of type",
+        "operationId": "KaratProto_GetFlagOfType",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbFlagOfTypeResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "description": "type = 1 получение списка ошибок по приборам\ntype = 2 получение списка флагов событий (параметр EventMaskFlags)\ntype = 3 получение списка флагов статусов связи (параметр ConStatusFlags)\ntype = 4 получение списка перечня флагов для функции 0x0021 (параметр CFlags)\ntype = 5 получение списка типов архивов\ntype = 6 получение списка нештатных ситуаций в приборе (параметр LogCode).",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_arch_query": {
+      "get": {
+        "summary": "Set packet of query archive",
+        "operationId": "KaratProto_SetArchQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbArchQueryResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "protocol_version",
+            "description": "Параметр отвечает за версию протокола.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "PROTOCOL18",
+              "PROTOCOL20"
+            ],
+            "default": "PROTOCOL18"
+          },
+          {
+            "name": "arch_time",
+            "description": "ArchTime – Время запрашиваемого архива,format := \"2006-01-02 15:04:05\".",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "arch_type",
+            "description": "Тип запрафиваемого архива\nв качестве параметра передается id, см /api/status_of_flag?type=5.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_function_empty_param": {
+      "get": {
+        "summary": "Set function empty param",
+        "operationId": "KaratProto_SetFunctionWithEmptyParam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbFunctionWithEmptyParamResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "function_code",
+            "description": "Выбор номер функции для получения информации\nФункция 20 - комплексное чтение параметров (версия протокола 1.8)\t\nФункция 33 - чтение/установка параметров сети LoRaWAN (версия протокола 2.0)\t\nФункция 256 - Чтение информации о конечном устройстве (версия протокола 2.0)\t\nФункция 257 - Комплексное чтение/установка параметров конечного устройства с несколькими пакетами данных (версия протокола 2.0).",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_lorawan_params": {
+      "get": {
+        "summary": "Set LoraWan Params operation",
+        "operationId": "KaratProto_SetLoraWanParams",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbLoraWanParamsResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "join_params",
+            "description": "Параметры подключения,скорость (DR), по умолчанию = 32.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "dn2freq",
+            "description": "Частота 2-го окна приема, по умолчанию = 8691000.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "port",
+            "description": "Порт, на который нода отправляет пакеты, по умолчанию = 5.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "tx_atts",
+            "description": "Число попыток передачи, по умолчанию = 3.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "adr_param",
+            "description": "Параметры адаптации скорости, по умолчанию = 34.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "cflags",
+            "description": "Управляющие флаги\nв качестве параметра передается массив id, см /api/status_of_flag?type=4.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_settings_packet_protocol_18": {
+      "get": {
+        "summary": "Coder for function 0x0015 of configuration packet Protocol Karat",
+        "operationId": "KaratProto_SetSettingsPacketProtocol18",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbSettingsPacketProtocol18Response"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "lw_time",
+            "description": "LWTime – Время конечного устройства,format := \"2006-01-02 15:04:05\"\nЕсли данное поле не используется,то оставляется не заполненным в пакете формируется значение 0xFFFFFFFFFFFF\nЗадается либо lw_time, либо delta_dev_time, если задано lw_time, то delta_dev_time = 0.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delta_dev_time",
+            "description": "Смещение часов между конечным устройством и часами сервера точного времени;.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "time_zone",
+            "description": "Часовой пояс, параметр задается в часах.",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "offset_time",
+            "description": "Cмещение выхода на связь от начала суток в секундах допустимые значения 1…43200 сек.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tx_period",
+            "description": "период выхода на связь в секундах.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "arch_flags",
+            "description": "Флаги типов передаваемых архивов\nв качестве параметра передается массив параметров id, см /api/status_of_flag?type=5.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "main_msg_cnt",
+            "description": "Число передаваемых пакетов.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg1",
+            "description": "Код функции 1-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg2",
+            "description": "Код функции 2-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg3",
+            "description": "Код функции 3-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg4",
+            "description": "Код функции 4-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg5",
+            "description": "Код функции 5-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg6",
+            "description": "Код функции 6-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "rep_date",
+            "description": "Дата отчетного периода.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_settings_packet_protocol_20": {
+      "get": {
+        "summary": "Coder for function 0x0101 of configuration packet Protocol Karat",
+        "operationId": "KaratProto_SetSettingsPacketProtocol20",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbSettingsPacketProtocol20Response"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "event_mask_flags",
+            "description": "EventMaskFlags – Маска флагов событий выхода на связь\nв качестве параметра передается массив параметров id, см /api/status_of_flag?type=2.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "delta_dev_time",
+            "description": "Передается разница времени конечного устройства и сети в секундах;.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "time_zone",
+            "description": "Часовой пояс, параметр задается в часах.",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "offset_time",
+            "description": "Cмещение выхода на связь от начала суток в секундах допустимые значения 1…43200 сек.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tx_period",
+            "description": "период выхода на связь в минутах, допустимые значения 1…720 мин.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "arch_flags",
+            "description": "Флаги типов передаваемых архивов\nв качестве параметра передается массив параметров id, см /api/status_of_flag?type=5.",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "main_msg_cnt",
+            "description": "Число передаваемых пакетов.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg1",
+            "description": "Код функции 1-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg2",
+            "description": "Код функции 2-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg3",
+            "description": "Код функции 3-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg4",
+            "description": "Код функции 4-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg5",
+            "description": "Код функции 5-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "mmsg6",
+            "description": "Код функции 6-го пакета, см /api/packet.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/tx_time_correct": {
+      "get": {
+        "summary": "Set time correct operation",
+        "operationId": "KaratProto_SetTimeCorrect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbTimeCorrectResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "delta_time",
+            "description": "Сдвиг конечного устройства в секундах\nположительный сдвиг (часы конечного устройства отстают), отрицательный сдвиг (часы конечного устройства идут вперед) \nРаботает со всеми версиями протокола.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    },
+    "/api/unit": {
+      "get": {
+        "summary": "List of unit",
+        "operationId": "KaratProto_GetUnit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUnitResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "tags": [
+          "KaratProto"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ArchQueryRequestPROTOCOL": {
+      "type": "string",
+      "enum": [
+        "PROTOCOL18",
+        "PROTOCOL20"
+      ],
+      "default": "PROTOCOL18",
+      "title": "Выбор версии протокола"
+    },
+    "pbArchQueryResponse": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function query archive."
+    },
+    "pbData": {
+      "type": "object",
+      "properties": {
+        "rvalue_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "value": {
+          "type": "object"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rvariable_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "The response message value of config packet"
+    },
+    "pbFlagOfType": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "note": {
+          "type": "string"
+        },
+        "byte": {
+          "type": "string"
+        },
+        "nbit": {
+          "type": "object"
+        },
+        "devices": {
+          "type": "string"
+        }
+      }
+    },
+    "pbFlagOfTypeResponse": {
+      "type": "object",
+      "properties": {
+        "flags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbFlagOfType"
+          }
+        }
+      },
+      "title": "return list flag of type"
+    },
+    "pbFunctionWithEmptyParamResponse": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function 0x0016."
+    },
+    "pbLoraWanParamsResponse": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function 0x0016."
+    },
+    "pbPacket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "vr": {
+          "type": "string"
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "packet_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "The response message containing the PacketDecode"
+    },
+    "pbPacketConf": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "index": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "resource_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rvariable_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rvalue_id": {
+          "type": "object"
+        },
+        "len": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type_data": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "little_endian": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "is_sensor": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "unit_id": {
+          "type": "object"
+        }
+      },
+      "title": "The response message containing the PacketConf"
+    },
+    "pbPacketConfResponse": {
+      "type": "object",
+      "properties": {
+        "packet_conf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbPacketConf"
+          }
+        }
+      },
+      "title": "return list packet configuration"
+    },
+    "pbPacketDecodeResponse": {
+      "type": "object",
+      "properties": {
+        "func": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "datas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbData"
+          }
+        },
+        "resource_inx": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "packet_error": {
+          "type": "string"
+        },
+        "packet_type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "The response message containing the PacketDecode"
+    },
+    "pbPacketResponse": {
+      "type": "object",
+      "properties": {
+        "packet": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbPacket"
+          }
+        }
+      },
+      "title": "return list packet"
+    },
+    "pbResource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "pbResourceResponse": {
+      "type": "object",
+      "properties": {
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbResource"
+          }
+        }
+      },
+      "title": "return list resource"
+    },
+    "pbRvalue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "resource_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rvariable_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unit_id": {
+          "type": "object"
+        }
+      }
+    },
+    "pbRvalueResponse": {
+      "type": "object",
+      "properties": {
+        "rvalues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbRvalue"
+          }
+        }
+      },
+      "title": "return list rvalue"
+    },
+    "pbRvariable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "alias": {
+          "type": "string"
+        }
+      }
+    },
+    "pbRvariableResponse": {
+      "type": "object",
+      "properties": {
+        "rvariable": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbRvariable"
+          }
+        }
+      },
+      "title": "return list rvariable"
+    },
+    "pbSettingsPacketProtocol18Response": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function 0x0015."
+    },
+    "pbSettingsPacketProtocol20Response": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function 0x0101."
+    },
+    "pbTimeCorrectResponse": {
+      "type": "object",
+      "properties": {
+        "bpacket": {
+          "type": "string",
+          "format": "byte"
+        },
+        "spacket": {
+          "type": "string"
+        }
+      },
+      "description": "The response message containing base64 response for function 0x0016."
+    },
+    "pbUnit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rvariable_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "multiplier": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "pbUnitResponse": {
+      "type": "object",
+      "properties": {
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbUnit"
+          }
+        }
+      },
+      "title": "return list unit"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        },
+        "value": {
+          "type": "string",
+          "format": "byte",
+          "description": "Must be a valid serialized protocol buffer of the above specified type."
+        }
+      },
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := ptypes.MarshalAny(foo)\n     ...\n     foo := \u0026pb.Foo{}\n     if err := ptypes.UnmarshalAny(any, foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
