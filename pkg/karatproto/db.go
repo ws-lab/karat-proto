@@ -357,7 +357,7 @@ func setMapLogCode(db *sqlx.DB) (err error) {
 	if err != nil {
 		db, err = sqlx.Open("sqlite3", BASE_PATH)
 	}
-	rows, err := db.Queryx("select id,note,nbit,byte from flags where type=6")
+	rows, err := db.Queryx("select id,note,nbit,byte from flags where type in (2,6)")
 	if err != nil {
 		log.Fatal(err)
 	}

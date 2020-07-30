@@ -401,8 +401,6 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 			inter_value = getConFlag(bd)
 		} else if item.TypeData == data_types["CFlags"] {
 			inter_value = getLoraFlag(bd)
-		} else if item.TypeData == data_types["LogCode"] {
-			inter_value = getLogCode(bd)
 		} else if item.TypeData == data_types["HDMY"] {
 			var time_arch TIME_HDMY_TYPE
 			if s.Contains(conf_.ConfVersion, "1.9") || s.Contains(conf_.ConfVersion, "2.0") {
@@ -492,37 +490,6 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 		}
 
 		if item.Multiplier.Valid && item.Multiplier.Float64 != 0 && item.Multiplier.Float64 != 1 {
-			/*var fl float64
-			switch i := inter_value.(type) {
-			case float64:
-				fl = i
-				break
-			case float32:
-				fl = float64(i)
-				break
-			case int32:
-				fl = float64(i)
-				break
-			case int16:
-				fl = float64(i)
-				break
-			case int64:
-				fl = float64(i)
-				break
-			case uint32:
-				fl = float64(i)
-				break
-			case uint16:
-				fl = float64(i)
-				break
-			case uint64:
-				fl = float64(i)
-				break
-			default:
-				return ret, errors.New("Multiplier: unknown value is of incompatible type")
-			}
-			inter_value = fl * item.Multiplier.Float64
-			*/
 			var k float64 = 100000000
 			switch i := inter_value.(type) {
 			case int32:
@@ -532,7 +499,6 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 				inter_value = float64(uint64(i)*uint64(item.Multiplier.Float64*k)) / k
 				break
 			case float32:
-				//inter_value = float64(uint64(float64(i)*k)*item.Multiplier.Float64*k)) / k /k
 				inter_value = float64(i) * item.Multiplier.Float64
 				break
 			default:
@@ -628,7 +594,7 @@ func getFlagStatusNByte(status_byte []byte) (ret []int) {
 	}
 	return ret
 }
-func getEventFlag(error_struct []byte) (ret []int /*FlagStruct*/) {
+func getEventFlag(error_struct []byte) (ret []int) {
 	var ee []int
 	for _, item := range error_struct {
 		ee = append(ee, byteToBits([1]byte{item})...)
@@ -643,7 +609,7 @@ func getEventFlag(error_struct []byte) (ret []int /*FlagStruct*/) {
 	}
 	return ret
 }
-func getConFlag(con_byte []byte) (ret []int /*FlagStruct*/) {
+func getConFlag(con_byte []byte) (ret []int) {
 	var ee []int
 	for _, item := range con_byte {
 		ee = append(ee, byteToBits([1]byte{item})...)
@@ -658,7 +624,7 @@ func getConFlag(con_byte []byte) (ret []int /*FlagStruct*/) {
 	}
 	return ret
 }
-func getLoraFlag(lora_byte []byte) (ret []int /*FlagStruct*/) {
+func getLoraFlag(lora_byte []byte) (ret []int) {
 	var ee []int
 	for _, item := range lora_byte {
 		ee = append(ee, byteToBits([1]byte{item})...)
@@ -669,21 +635,6 @@ func getLoraFlag(lora_byte []byte) (ret []int /*FlagStruct*/) {
 				continue
 			}
 			ret = append(ret, lora_flag[index].Id)
-		}
-	}
-	return ret
-}
-func getLogCode(log_byte []byte) (ret []int) {
-	var ee []int
-	for _, item := range log_byte {
-		ee = append(ee, byteToBits([1]byte{item})...)
-	}
-	for index, item := range ee {
-		if item == 1 {
-			if _, ok := log_flag[index]; !ok {
-				continue
-			}
-			ret = append(ret, log_flag[index].Id)
 		}
 	}
 	return ret

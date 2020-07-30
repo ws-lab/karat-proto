@@ -119,32 +119,30 @@ type Flags struct {
 }
 
 var data_types = map[string]string{
-	"int16":    "1",
-	"int32":    "2",
-	"int64":    "3",
-	"float32":  "4",
-	"byte2bit": "5",
-	"int8":     "6",
-	"uint16":   "8",
-	"uint32":   "9",
-	"uint64":   "10",
-	"uint8":    "11",
-	"SMHDMY":   "12", // karat lora, 6 байт
-	"DMY":      "13", // PZIP lora, 3 байтa
-	"MY":       "14", // PZIP lora, 2 байтa
-	"error":    "15", //4 байта
-	//"error_926":      "16", //1 байт
-	"HDMY":           "17", // karat lora, 4 байта
-	"protoVR":        "18", // karat lora, 1 байт
-	"archs":          "19", //karat lora, 1 байт типы архивов
-	"ConStatusFlags": "20", //karat lora, 2 байта флаги статуса связи, причина передачи пакета,0x0100
-	"EventMaskFlags": "21", //karat lora, 2 байта Маска флагов событий выхода на связь,0x0101
-	//"SMHDMY2.0":      "22", // karat lora, 4 байта
+	"int16":            "1",
+	"int32":            "2",
+	"int64":            "3",
+	"float32":          "4",
+	"byte2bit":         "5",
+	"int8":             "6",
+	"uint16":           "8",
+	"uint32":           "9",
+	"uint64":           "10",
+	"uint8":            "11",
+	"SMHDMY":           "12", // karat lora, 6 байт
+	"DMY":              "13", // PZIP lora, 3 байтa
+	"MY":               "14", // PZIP lora, 2 байтa
+	"error":            "15", //4 байта
+	"HDMY":             "17", // karat lora, 4 байта
+	"protoVR":          "18", // karat lora, 1 байт
+	"archs":            "19", //karat lora, 1 байт типы архивов
+	"ConStatusFlags":   "20", //karat lora, 2 байта флаги статуса связи, причина передачи пакета,0x0100
+	"EventMaskFlags":   "21", //karat lora, 2 байта Маска флагов событий выхода на связь,0x0101
 	"TimeZone":         "23", // karat lora, 2 байта
 	"NodeSerialNum1.8": "24", // karat lora, 6 байт
 	"CFlags":           "25", // karat lora, 1 байт флаги лоры
 	"Uint24":           "26", // karat lora, 3 байта
-	"LogCode":          "27", // karat lora, 4 байта
+	//"LogCode":          "27", // karat lora, 4 байта
 }
 
 var error_926 = []int{

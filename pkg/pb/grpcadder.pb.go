@@ -1589,7 +1589,6 @@ type FlagOfTypeRequest struct {
 	// type = 3 получение списка флагов статусов связи (параметр ConStatusFlags)
 	// type = 4 получение списка перечня флагов для функции 0x0021 (параметр CFlags)
 	// type = 5 получение списка типов архивов
-	// type = 6 получение списка нештатных ситуаций в приборе (параметр LogCode)
 	Type int32 `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
 }
 
