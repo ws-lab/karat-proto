@@ -33,10 +33,7 @@ func (s *GRPCServer) PacketDecode(ctx context.Context, req *pb.PacketDecodeReque
 			return nil, err
 		}
 	} else {
-		sb, err = str2Byte(fmt.Sprintf("%+s", req.GetBpacket()))
-		if err != nil {
-			return nil, err
-		}
+		sb = req.GetBpacket()
 	}
 	func_code, resource_inx, error_type, err := getFuctionCode(sb)
 	if err != nil {
