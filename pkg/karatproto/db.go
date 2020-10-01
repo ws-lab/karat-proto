@@ -914,7 +914,7 @@ func setArchQuery(req *pb.ArchQueryRequest) (ret *pb.ArchQueryResponse, err erro
 		if req.GetProtocolVersion().String() == "PROTOCOL20" {
 			var ip setArchivePacketByteTx20
 			ip.ArchType = uint8(req.GetArchType())
-			arch_time := int(Second2LwTimeExtWRITE(int64(tt.Second())))
+			arch_time := int(Second2LwTimeExtWRITE2(tt))
 			binary.LittleEndian.PutUint16(code_function, uint16(58))
 			copy(ip.CodeFunction[:], code_function)
 			arch_time_byte := make([]byte, 4)
@@ -1033,6 +1033,12 @@ func Second2LwTimeExtWRITE(sec int64) (lw_time_diff float64) {
 	date := time.Date(2000, 03, 01, 0, 0, 0, 0, time.UTC)
 	date = date.Add(time.Second * time.Duration(sec))
 	lw_time_diff = now.Sub(date).Seconds()
+	return
+}
+func Second2LwTimeExtWRITE2(datetime time.Time) (lw_time_diff float64) { //преобразование из времени в во время карата
+	date := time.Date(2000, 03, 01, 0, 0, 0, 0, time.UTC)
+	datetime = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), datetime.Hour(), datetime.Minute(), datetime.Second(), 0, time.UTC)
+	lw_time_diff = datetime.Sub(date).Seconds()
 	return
 }
 func setArchByte(param []uint32) (abb []byte, err error) {
