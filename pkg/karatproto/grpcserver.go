@@ -252,7 +252,6 @@ func str2Byte(command string) (ret []byte, err error) {
 	return dst[:], err
 }
 func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
-	//6e020f170d04148e71ad3ebea4a7420e1fa642c5b14142408831421a4c81406f12833a4260e53b295c0f3d5c880100dcdb0600
 	var time_ float32
 	var requestDate2 TIME_TYPE
 	var rvalue_id, resource_id int32
@@ -284,11 +283,9 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 		copy(bd[:], bd_)
 		if item.MaskType == "t" {
 			time_ = 60
-			if contains(conf_.ConfModel, "213") {
+			if contains(conf_.ConfModel, "213") && (s.Contains(conf_.ConfVersion, "1.6") || s.Contains(conf_.ConfVersion, "1.7") || s.Contains(conf_.ConfVersion, "1.8")) {
 				time_ = 600
-			} /* else if contains(conf_.ConfModel, "308") {
-				time_ = 360
-			}*/
+			}
 			inter_value = float32(binary.LittleEndian.Uint32(bd)) / time_
 		} else if item.TypeData == data_types["int16"] {
 			var y int16
@@ -403,6 +400,8 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 			if s.Contains(conf_.ConfVersion, "1.9") || s.Contains(conf_.ConfVersion, "2.0") {
 				lw_time_ext := int64(binary.LittleEndian.Uint32(bd))
 				sec_time := Second2LwTimeExtREAD(lw_time_ext)
+				requestDate2.Sec = sec_time.Second()
+				requestDate2.Min = sec_time.Minute()
 				requestDate2.Hour = sec_time.Hour()
 				requestDate2.Day = sec_time.Day()
 				requestDate2.Month = int(sec_time.Month())
