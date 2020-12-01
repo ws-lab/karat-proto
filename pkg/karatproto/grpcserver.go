@@ -484,21 +484,27 @@ func packetDecode(code int, data []byte) (ret []*pb.Data, err error) {
 			}
 			inter_value = requestDate2.struct_to_time()
 		}
-
 		if item.Multiplier.Valid && item.Multiplier.Float64 != 0 && item.Multiplier.Float64 != 1 {
-			var k float64 = 100000000
-			switch i := inter_value.(type) {
-			case int32:
-				inter_value = float64(int64(i)*int64(item.Multiplier.Float64*k)) / k
-				break
-			case uint32:
-				inter_value = float64(uint64(i)*uint64(item.Multiplier.Float64*k)) / k
-				break
-			case float32:
-				inter_value = float64(i) * item.Multiplier.Float64
+			switch v := inter_value.(type) {
+			default:
+				value := fmt.Sprintf("%v", v)
+				value_fl64, err := strconv.ParseFloat(value, 64)
+				if err != nil {
+					return nil, errors.New("Ошибка при преобразовании значения")
+				}
+				inter_value = value_fl64 * item.Multiplier.Float64
+			}
+		} else {
+			switch v := inter_value.(type) {
+			case float32, float64:
+				value := fmt.Sprintf("%v", v)
+				inter_value, err = strconv.ParseFloat(value, 64)
+				if err != nil {
+					return nil, errors.New("Ошибка при преобразовании значения")
+				}
 				break
 			default:
-				return ret, errors.New("Multiplier: unknown value is of incompatible type")
+				break
 			}
 		}
 		rec = pb.Data{RvalueId: rvalue_id, ResourceId: resource_id, Alias: item.Alias, Value: ToValue(inter_value)}
